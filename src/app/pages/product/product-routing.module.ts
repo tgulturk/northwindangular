@@ -6,6 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: "product", component: ProductComponent
+  },
+  {
+    path: "product/:categoryId", component: ProductComponent
   }
 ];
 

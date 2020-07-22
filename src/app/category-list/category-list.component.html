@@ -1,7 +1,8 @@
 <h4 class="border-bottom pb-2">{{ title }}</h4>
 <div class="list-group">
   <a
-    href="#"
+    routerLink="product/{{ category.id }}"
+    routerLinkActive="active"
     class="list-group-item list-group-item-action"
     *ngFor="let category of categories"
   >

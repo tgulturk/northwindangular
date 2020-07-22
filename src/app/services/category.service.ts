@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Category } from './../core/models/category';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,13 +9,15 @@ import { Observable } from 'rxjs';
 })
 export class CategoryService {
 
+  baseUrl: string = `${environment.apiUrl}categories`;
+
   constructor(private httpClient: HttpClient) {
 
   }
 
   getAll(): Observable<Category[]> {
     return this.httpClient
-      .get<Category[]>('http://localhost:3000/categories');
+      .get<Category[]>(this.baseUrl);
 
   }
 }

@@ -2,6 +2,7 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/core/models/product';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -10,15 +11,22 @@ import { Subscription } from 'rxjs';
 })
 export class ProductComponent implements OnInit {
 
-  title = "Ürünler";
   products: Product[] = [];
 
   subs: Subscription[] = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+    private activatedRoute: ActivatedRoute) {
+
+  }
 
   ngOnInit(): void {
-    this.getAllProducts();
+
+    this.activatedRoute.params.subscribe(route => {
+
+      let categoryId = route["categoryId"];
+      this.getProducts(categoryId);
+    })
   }
 
   ngOnDestroy(): void {
@@ -29,9 +37,13 @@ export class ProductComponent implements OnInit {
   }
 
 
-  getAllProducts() {
-
-    this.subs.push(this.productService.getAll().subscribe((data) => (this.products = data)));
+  getProducts(categoryId?: number) {
+    if (categoryId) {
+      this.subs.push(this.productService.getListByCategoryId(categoryId).subscribe((data) => (this.products = data)));
+    }
+    else {
+      this.subs.push(this.productService.getAll().subscribe((data) => (this.products = data)));
+    }
   }
 
 }
