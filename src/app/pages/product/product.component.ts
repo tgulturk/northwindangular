@@ -1,8 +1,10 @@
+import { CartService } from './../../services/cart.service';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/core/models/product';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +18,9 @@ export class ProductComponent implements OnInit {
   subs: Subscription[] = [];
 
   constructor(private productService: ProductService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private cartService: CartService,
+    private notification: NzNotificationService) {
 
   }
 
@@ -44,6 +48,11 @@ export class ProductComponent implements OnInit {
     else {
       this.subs.push(this.productService.getAll().subscribe((data) => (this.products = data)));
     }
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart(product);
+    //this.notification.success("Başarılı", "Ürün Sepete Eklendi.");
   }
 
 }

@@ -1,0 +1,37 @@
+<h4 class="border-bottom pb-2">Ürün Kayıt</h4>
+
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="name">Ürün Adı</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="name" type="email" id="name" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="categoryId">Kategori</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select name="categoryId" id="categoryId" nzShowSearch nzAllowClear>
+        <nz-option nzValue="1" nzLabel="Gıda"></nz-option>
+        <nz-option nzValue="2" nzLabel="Mobilya"></nz-option>
+        <nz-option nzValue="3" nzLabel="Elektronik"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="price">Fiyat</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="price" type="email" id="price" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="description">Açıklama</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea
+        nz-input
+        name="description"
+        id="description"
+        [nzAutosize]="{ minRows: 2, maxRows: 8 }"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>

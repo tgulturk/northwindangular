@@ -2,3 +2,6 @@
 body {
   margin-top: 75px;
 }
+.fixed-top {
+  z-index: 999;
+}

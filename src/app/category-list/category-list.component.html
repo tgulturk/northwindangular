@@ -1,6 +1,14 @@
 <h4 class="border-bottom pb-2">{{ title }}</h4>
 <div class="list-group">
   <a
+    routerLink="product"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="list-group-item list-group-item-action"
+  >
+    Hepsi
+  </a>
+  <a
     routerLink="product/{{ category.id }}"
     routerLinkActive="active"
     class="list-group-item list-group-item-action"
