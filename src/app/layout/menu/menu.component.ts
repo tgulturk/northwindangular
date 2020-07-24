@@ -1,3 +1,5 @@
+import { User } from './../../core/models/user';
+import { UserService } from './../../services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  constructor(private userService: UserService) {
+    this.user = this.userService.getUser();
+  }
 
   ngOnInit(): void {
+  }
+  logout() {
+    this.userService.logout();
   }
 
 }

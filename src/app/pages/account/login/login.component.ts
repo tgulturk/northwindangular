@@ -1,6 +1,9 @@
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from './../../../services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -8,18 +11,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  form: FormGroup;
+  submitted = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private notification: NzNotificationService) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  login() {
-    this.userService.login("deneme", "1234").subscribe(data => {
-      console.log(data);
+  get f() { return this.form.controls; }
 
+  login() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.userService.login(this.f.username.value, this.f.password.value).pipe(first()).subscribe(data => {
       this.router.navigateByUrl("/product");
-    })
+    },
+      error => {
+        this.notification.error("HATA", "Kullanıcı adı veya şifre geçersiz.");
+      })
   }
 
 }

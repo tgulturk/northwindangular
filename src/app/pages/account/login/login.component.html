@@ -1,5 +1,5 @@
 <div class="text-center">
-  <form class="form-signin">
+  <form class="form-signin" [formGroup]="form" (ngSubmit)="login()">
     <img
       class="mb-4"
       src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg"
@@ -7,26 +7,26 @@
       width="72"
       height="72"
     />
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
+    <h1 class="h3 mb-3 font-weight-normal">Please Login</h1>
     <input
-      type="email"
-      id="inputEmail"
+      type="text"
+      formControlName="username"
       class="form-control"
-      placeholder="Email address"
-      required
-      autofocus
+      placeholder="Usename"
+      [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
     />
-    <label for="inputPassword" class="sr-only">Password</label>
+    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Username is required</div>
+    </div>
     <input
       type="password"
-      id="inputPassword"
-      class="form-control"
+      formControlName="password"
       placeholder="Password"
-      required
+      class="form-control"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
     />
-    <div class="checkbox mb-3">
-      <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
     </div>
     <button
       class="btn btn-lg btn-primary btn-block"
@@ -35,6 +35,6 @@
     >
       Login
     </button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
+    <p class="mt-5 mb-3 text-muted">&copy; @2020</p>
   </form>
 </div>

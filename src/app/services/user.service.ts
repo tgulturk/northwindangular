@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { tap, first, map } from "rxjs/operators";
 import { User } from '../core/models/user';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UserService {
 
   baseUrl: string = `${environment.apiUrl}users`;
 
-  constructor(private httpclient: HttpClient) { }
+  constructor(private httpclient: HttpClient, private router: Router) { }
 
   login(username: string, password: string): Observable<User> {
     return this.httpclient.get<User>(`${this.baseUrl}?username=${username}&password=${password}`).pipe(
@@ -21,6 +22,12 @@ export class UserService {
       tap(data => {
         localStorage.setItem("token", data.token);
       }));
+  }
+
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 
   isAuth(): boolean {
