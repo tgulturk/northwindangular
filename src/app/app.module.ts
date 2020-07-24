@@ -14,6 +14,9 @@ import { registerLocaleData } from '@angular/common';
 import tr from '@angular/common/locales/tr';
 registerLocaleData(tr);
 import { NZ_I18N, tr_TR } from 'ng-zorro-antd/i18n';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../app/core/interceptors/jwt.interceptor';
+import { ErrorInterceptor } from '../app/core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,17 @@ import { NZ_I18N, tr_TR } from 'ng-zorro-antd/i18n';
     ProductModule,
     CartModule,
     BrowserAnimationsModule],
-  providers: [{ provide: NZ_I18N, useValue: tr_TR }],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ErrorInterceptor,
+    multi: true
+  },
+  { provide: NZ_I18N, useValue: tr_TR }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

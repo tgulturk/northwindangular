@@ -1,3 +1,4 @@
+import { AuthGuard } from './core/guards/auth.guard';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { LoginComponent } from './pages/account/login/login.component';
 import { NgModule } from '@angular/core';
@@ -17,7 +18,9 @@ const routes: Routes = [
   {
     path: "",
     component: MainLayoutComponent,
-    loadChildren: () => import('./pages/product/product.module').then(t => t.ProductModule)
+    loadChildren: () => import('./pages/product/product.module').then(t => t.ProductModule),
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard]
   }
 ];
 

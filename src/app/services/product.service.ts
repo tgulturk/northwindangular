@@ -25,4 +25,8 @@ export class ProductService {
 
   }
 
+  addProduct(product: Product): Observable<Product> {
+    return this.httpClient.post<Product>(this.baseUrl, product);
+  }
+
 }

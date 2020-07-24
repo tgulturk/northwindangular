@@ -1,3 +1,5 @@
+import { UserService } from './../../services/user.service';
+import { User } from './../../core/models/user';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainLayoutComponent implements OnInit {
 
-  constructor() { }
+  activeUser: User;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.activeUser = this.userService.getUser();
   }
 
 }
+

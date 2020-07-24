@@ -1,26 +1,67 @@
 <h4 class="border-bottom pb-2">Ürün Kayıt</h4>
 
-<form nz-form>
+<form #frmProduct="ngForm" nz-form (submit)="saveProduct(frmProduct)">
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="name">Ürün Adı</nz-form-label>
+    <nz-form-label [nzSpan]="6" nzFor="name" nzRequired>Ürün Adı</nz-form-label>
     <nz-form-control [nzSpan]="14">
-      <input nz-input name="name" type="email" id="name" />
+      <input
+        nz-input
+        [(ngModel)]="model.name"
+        required
+        name="name"
+        type="email"
+        id="name"
+      />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="categoryId">Kategori</nz-form-label>
+    <nz-form-label [nzSpan]="6" nzFor="categoryId" nzRequired
+      >Kategori</nz-form-label
+    >
     <nz-form-control [nzSpan]="14">
-      <nz-select name="categoryId" id="categoryId" nzShowSearch nzAllowClear>
-        <nz-option nzValue="1" nzLabel="Gıda"></nz-option>
-        <nz-option nzValue="2" nzLabel="Mobilya"></nz-option>
-        <nz-option nzValue="3" nzLabel="Elektronik"></nz-option>
+      <nz-select
+        [(ngModel)]="model.categoryId"
+        name="categoryId"
+        id="categoryId"
+        required
+        nzShowSearch
+        nzAllowClear
+        nzPlaceHolder="Seçiniz"
+      >
+        <nz-option
+          *ngFor="let cat of categories"
+          nzValue="{{ cat.id }}"
+          nzLabel="{{ cat.name }}"
+        ></nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="price">Fiyat</nz-form-label>
+    <nz-form-label [nzSpan]="6" nzFor="price" nzRequired>Fiyat</nz-form-label>
     <nz-form-control [nzSpan]="14">
-      <input nz-input name="price" type="email" id="price" />
+      <input
+        nz-input
+        [(ngModel)]="model.price"
+        name="price"
+        type="text"
+        id="price"
+        required
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="imageUrl" nzRequired
+      >Resim URL</nz-form-label
+    >
+    <nz-form-control [nzSpan]="14">
+      <input
+        nz-input
+        [(ngModel)]="model.imageUrl"
+        name="imageUrl"
+        type="text"
+        id="imageUrl"
+        required
+      />
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
@@ -28,10 +69,18 @@
     <nz-form-control [nzSpan]="14">
       <textarea
         nz-input
+        [(ngModel)]="model.description"
         name="description"
         id="description"
         [nzAutosize]="{ minRows: 2, maxRows: 8 }"
       ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="20">
+      <button nz-button nzType="primary" class="float-right">
+        Kaydet
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>

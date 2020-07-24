@@ -4,6 +4,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 
 
@@ -14,13 +15,15 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzNotificationModule,
     NzFormModule,
     NzInputModule,
-    NzSelectModule
+    NzSelectModule,
+    NzButtonModule
   ],
   exports: [
     NzNotificationModule,
     NzFormModule,
     NzInputModule,
-    NzSelectModule
+    NzSelectModule,
+    NzButtonModule
   ]
 })
 export class SharedModule { }
